@@ -3,15 +3,12 @@
 #
 # This downloads SNIRF data that includes auxiliary channels.
 
-import os
 from functools import partial
 
 import pooch
 from mne.datasets import fetch_dataset
 from mne.datasets.utils import has_dataset
 from mne.utils import verbose
-
-from ...fixes import _mne_path
 
 has_fnirs_snirf_aux_data = partial(has_dataset, name="snirf_with_aux")
 
@@ -51,9 +48,9 @@ def data_path(
         Path to dataset directory.
     """
     dataset_params = dict(
-        archive_name="2022-08-05_002.snirf.zip",
-        hash="md5:c012485b80d762a65b05d812761c0f4c",
-        url="https://osf.io/download/682ddabd4d28c665accacc7c?version=2",
+        archive_name="fnirs_snirf_aux.zip",
+        hash="md5:c127650330a4bc6399c1e6e78e634596",
+        url="https://osf.io/download/59hn6?version=1",
         folder_name="fNIRS-SNIRF-aux",
         dataset_name="snirf_with_aux",
         config_key="MNE_DATASETS_SNIRFAUX_PATH",
@@ -67,6 +64,4 @@ def data_path(
         download=download,
         processor=pooch.Unzip(extract_dir="./fNIRS-SNIRF-aux"),
     )
-    dpath = str(dpath)
-
-    return _mne_path(os.path.join(dpath, "2022-08-05_002.snirf"))
+    return dpath / "2022-08-05_002.snirf"
